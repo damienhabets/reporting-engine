@@ -68,6 +68,11 @@ def py3o_report_extender(report_xml_id=None):
 def default_extend(report_xml, context):
     context['report_xml'] = report_xml
 
+    # This allows reading Odoo parameters (such as "web.base.url").
+    localcontext['get_odoo_param'] = lambda *args, **kwargs: (
+        report_xml.env['ir.config_parameter'].get_param(*args, **kwargs)
+    )
+
 
 class Py3oReport(models.TransientModel):
     _name = "py3o.report"
