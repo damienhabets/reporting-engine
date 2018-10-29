@@ -217,6 +217,17 @@ Usage
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/143/10.0
 
+Variables sent to reports
+=========================
+
+py3o reports receive:
+
+* ``objects``: Odoo records the report is being run on.
+
+* ``get_odoo_param``: Function that allows reading Odoo parameters (such as
+  ``web.base.url``). Use with ``function=get_odoo_param('web.base.url')`` with
+  ``py3o://function=get_odoo_param('web.base.url')`` as a link around it.
+
 Known issues / Roadmap
 ======================
 

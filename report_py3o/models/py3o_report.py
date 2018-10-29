@@ -69,7 +69,13 @@ def defautl_extend(report_xml, localcontext):
     # add the base64decode function to be able do decode binary fields into
     # the template
     localcontext['b64decode'] = b64decode
+
     localcontext['report_xml'] = report_xml
+
+    # This allows reading Odoo parameters (such as "web.base.url").
+    localcontext['get_odoo_param'] = lambda *args, **kwargs: (
+        report_xml.env['ir.config_parameter'].get_param(*args, **kwargs)
+    )
 
 
 class Py3oReport(models.TransientModel):
