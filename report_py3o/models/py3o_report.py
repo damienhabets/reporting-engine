@@ -15,7 +15,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 import pkg_resources
 
-from odoo import _, api, fields, models, tools
+from odoo import _, api, exceptions, fields, models, tools
 
 from ._py3o_parser_context import Py3oParserContext
 
@@ -68,10 +68,29 @@ def py3o_report_extender(report_xml_id=None):
 def default_extend(report_xml, context):
     context['report_xml'] = report_xml
 
-    # This allows reading Odoo parameters (such as "web.base.url").
-    localcontext['get_odoo_param'] = lambda *args, **kwargs: (
-        report_xml.env['ir.config_parameter'].get_param(*args, **kwargs)
-    )
+    def get_odoo_param(key):
+        """Read a setting such as 'web.base.url' from "ir.config_parameter"
+        (global Odoo settings).
+
+        Settings read here must have been made available to the report through the
+        "ir.actions.report.xml::py3o_config_param_ids" field.
+
+        :type key: String.
+        :rtype: String.
+        """
+
+        # Not worth caching this across calls as won't be called much.
+        if key not in report_xml.py3o_config_param_ids.mapped('key'):
+            raise exceptions.Warning(_(
+                'Odoo param "%s" has not been made available to the "%s"'
+                'report. Add it through the '
+                '"Available configuration parameters" field.'
+            ) % (key, report_xml.name))
+
+        # All good! Read the param.
+        return report_xml.env['ir.config_parameter'].get_param(key)
+
+    context['get_odoo_param'] = get_odoo_param
 
 
 class Py3oReport(models.TransientModel):

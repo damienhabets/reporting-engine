@@ -26,6 +26,9 @@ class IrActionsReport(models.Model):
     """ Inherit from ir.actions.report to allow customizing the template
     file. The user cam chose a template from a list.
     The list is configurable in the configuration tab, see py3o_template.py
+
+    We also include a config-param list py3o reports may access via a
+    "get_odoo_param" function.
     """
 
     _inherit = 'ir.actions.report'
@@ -95,6 +98,18 @@ class IrActionsReport(models.Model):
     msg_py3o_report_not_available = fields.Char(
         compute='_compute_py3o_report_not_available'
         )
+
+    py3o_config_param_ids = fields.Many2many(
+        comodel_name='ir.config_parameter',
+        relation='py3o_ir_act_report_config_param_rel',
+        column1='ir_act_report_id',
+        column2='config_param_id',
+        string='py3o - Available configuration parameters',
+        help=(
+            'Configuration parameters selected here will be available to '
+            'reports via a "get_odoo_param" function.'
+        ),
+    )
 
     @api.model
     def _register_hook(self):

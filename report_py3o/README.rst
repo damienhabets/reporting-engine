@@ -168,10 +168,12 @@ display_address(partner)
 formatLang(value, digits=None, date=False, date_time=False, grouping=True, monetary=False, dp=False, currency_obj=False)
     Return a formatted numeric, monetary, date or time value according to the context language and timezone
     (old implementation kept for compatibility and ease migration)
-get_odoo_param(...)
+get_odoo_param(key)
     Function that allows reading Odoo parameters (such as ``web.base.url``). Use with
     ``function=get_odoo_param('web.base.url')`` with
-    ``py3o://function=get_odoo_param('web.base.url')`` as a link around it.
+    ``py3o://function=get_odoo_param('web.base.url')`` as a link around it. Goes along with an
+    "Available configuration parameters" field added within report settings which enforces which
+    keys the report can use here.
 o_format_lang(value, lang_code=False, digits=None, grouping=True, monetary=False, dp=False, currency_obj=False, no_break_space=True)
     Return a formatted numeric or monetary value according to the context language and timezone
 o_format_date(value, lang_code=False, date_format=False)

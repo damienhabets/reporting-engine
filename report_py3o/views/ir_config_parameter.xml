@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Simple ir.config_parameter view where values are not displayed (to be used
+        by the "ir.actions.report.xml::py3o_config_param_ids" field). -->
+
+    <record id="py3o_config_param_form" model="ir.ui.view">
+        <field name="name">py3o_config_param_form</field>
+        <field name="model">ir.config_parameter</field>
+        <field name="priority">100</field> <!-- Higher (so lower) priority than default. -->
+        <field name="arch" type="xml">
+
+            <tree>
+                <field name="key" />
+            </tree>
+
+        </field>
+    </record>
+
+</odoo>
