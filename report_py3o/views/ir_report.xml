@@ -23,6 +23,7 @@
                         <!-- string: Rename to take out "py3o" (redundant) from the label. -->
                         <!-- context: Only show keys, not values of available config-params. -->
                         <field name="py3o_config_param_ids" widget="many2many_tags"
+                            options="{'no_create': 1}"
                             string="Available configuration parameters"
                             context="{'tree_view_ref': 'report_py3o.py3o_config_param_form'}" />
 
