@@ -19,6 +19,9 @@ class IrActionsReportXml(models.Model):
     """ Inherit from ir.actions.report.xml to allow customizing the template
     file. The user cam chose a template from a list.
     The list is configurable in the configuration tab, see py3o_template.py
+
+    We also include a config-param list py3o reports may access via a
+    "get_odoo_param" function.
     """
 
     _inherit = 'ir.actions.report.xml'
@@ -88,6 +91,18 @@ class IrActionsReportXml(models.Model):
         "by default Odoo will generate a ZIP file that contains as many "
         "files as selected records. If you enable this option, Odoo will "
         "generate instead a single report for the selected records.")
+
+    py3o_config_param_ids = fields.Many2many(
+        comodel_name='ir.config_parameter',
+        relation='py3o_ir_act_report_config_param_rel',
+        column1='ir_act_report_id',
+        column2='config_param_id',
+        string='py3o - Available configuration parameters',
+        help=(
+            'Configuration parameters selected here will be available to '
+            'reports via a "get_odoo_param" function.'
+        ),
+    )
 
     @api.model
     def get_from_report_name(self, report_name, report_type):

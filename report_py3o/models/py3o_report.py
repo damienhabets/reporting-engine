@@ -18,6 +18,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 from odoo.exceptions import AccessError
 from odoo.exceptions import UserError
+from odoo.exceptions import Warning
 from odoo.report.report_sxw import rml_parse
 from odoo import api, fields, models, tools, _
 
@@ -72,10 +73,29 @@ def defautl_extend(report_xml, localcontext):
 
     localcontext['report_xml'] = report_xml
 
-    # This allows reading Odoo parameters (such as "web.base.url").
-    localcontext['get_odoo_param'] = lambda *args, **kwargs: (
-        report_xml.env['ir.config_parameter'].get_param(*args, **kwargs)
-    )
+    def get_odoo_param(key):
+        """Read a setting such as 'web.base.url' from "ir.config_parameter"
+        (global Odoo settings).
+
+        Settings read here must have been made available to the report through the
+        "ir.actions.report.xml::py3o_config_param_ids" field.
+
+        :type key: String.
+        :rtype: String.
+        """
+
+        # Not worth caching this across calls as won't be called much.
+        if key not in report_xml.py3o_config_param_ids.mapped('key'):
+            raise Warning(_(
+                'Odoo param "%s" has not been made available to the "%s"'
+                'report. Add it through the '
+                '"Available configuration parameters" field.'
+            ) % (key, report_xml.name))
+
+        # All good! Read the param.
+        return report_xml.env['ir.config_parameter'].get_param(key)
+
+    localcontext['get_odoo_param'] = get_odoo_param
 
 
 class Py3oReport(models.TransientModel):

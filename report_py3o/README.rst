@@ -226,7 +226,9 @@ py3o reports receive:
 
 * ``get_odoo_param``: Function that allows reading Odoo parameters (such as
   ``web.base.url``). Use with ``function=get_odoo_param('web.base.url')`` with
-  ``py3o://function=get_odoo_param('web.base.url')`` as a link around it.
+  ``py3o://function=get_odoo_param('web.base.url')`` as a link around it. Goes
+  along with an "Available configuration parameters" field added within report
+  settings which enforces which keys the report can use here.
 
 Known issues / Roadmap
 ======================

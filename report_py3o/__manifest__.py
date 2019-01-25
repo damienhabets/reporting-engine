@@ -20,6 +20,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/menu.xml',
+        'views/ir_config_parameter.xml',
         'views/py3o_template.xml',
         'views/py3o_server.xml',
         'views/ir_report.xml',
