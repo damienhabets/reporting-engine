@@ -174,6 +174,11 @@ get_odoo_param(key)
     ``py3o://function=get_odoo_param('web.base.url')`` as a link around it. Goes along with an
     "Available configuration parameters" field added within report settings which enforces which
     keys the report can use here.
+html2text(record, fieldname)
+    Function to convert HTML into Markdown-ish text format (same as the one Odoo uses when
+    parsing / indexing emails it receives). Use with
+    ``function=html2text(record, "my_html_field")`` with
+    ``py3o://function=html2text(record, "my_html_field")`` as a link around it.
 o_format_lang(value, lang_code=False, digits=None, grouping=True, monetary=False, dp=False, currency_obj=False, no_break_space=True)
     Return a formatted numeric or monetary value according to the context language and timezone
 o_format_date(value, lang_code=False, date_format=False)
