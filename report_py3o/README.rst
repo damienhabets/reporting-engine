@@ -230,6 +230,11 @@ py3o reports receive:
   along with an "Available configuration parameters" field added within report
   settings which enforces which keys the report can use here.
 
+* ``html2text``: Function to convert HTML into Markdown-ish text format (same
+  as the one Odoo uses when parsing / indexing emails it receives). Use with
+  ``function=html2text(record, "my_html_field")`` with
+  ``py3o://function=html2text(record, "my_html_field")`` as a link around it.
+
 Known issues / Roadmap
 ======================
 

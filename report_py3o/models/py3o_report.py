@@ -22,11 +22,15 @@ from odoo.exceptions import Warning
 from odoo.report.report_sxw import rml_parse
 from odoo import api, fields, models, tools, _
 
+from odoo.addons.mail.models.html2text import html2text
+
+
 logger = logging.getLogger(__name__)
 
 try:
     from py3o.template.helpers import Py3oConvertor
     from py3o.template import Template
+    from py3o.template.main import format_multiline
     from py3o import formats
 except ImportError:
     logger.debug('Cannot import py3o.template')
@@ -96,6 +100,15 @@ def defautl_extend(report_xml, localcontext):
         return report_xml.env['ir.config_parameter'].get_param(key)
 
     localcontext['get_odoo_param'] = get_odoo_param
+
+    # Function to convert HTML into Markdown-ish text format (same as the one
+    # Odoo uses when parsing / indexing emails it receives). Use with
+    # ``function=html2text(record, "my_html_field")`` with
+    # ``py3o://function=html2text(record, "my_html_field")`` as a link around
+    # it.
+    localcontext["html2text"] = lambda record, fieldname: (
+        format_multiline(html2text(getattr(record, fieldname)))
+    )
 
 
 class Py3oReport(models.TransientModel):
