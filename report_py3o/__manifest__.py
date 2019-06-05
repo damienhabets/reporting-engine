@@ -14,8 +14,12 @@
     'website': 'http://odoo.consulting/',
     'depends': ['report'],
     'external_dependencies': {
-        'python': ['py3o.template',
-                   'py3o.formats']
+        'python': [
+            'py3o.template',
+            'py3o.formats',
+            'py3o.types',
+            'setuptools',
+        ],
     },
     'data': [
         'security/ir.model.access.csv',

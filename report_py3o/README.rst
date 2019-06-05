@@ -31,8 +31,9 @@ You must install 2 additionnal python libs:
 
 .. code::
 
-  pip install py3o.template
-  pip install py3o.formats
+  pip install py3o.template==0.10.0
+  pip install py3o.formats==0.3
+  pip install py3o.types==0.1.1
 
 To allow the conversion of ODT or ODS reports to other formats (PDF, DOC, DOCX, etc.), you must install several additionnal components and Python libs:
 
@@ -81,7 +82,7 @@ At the end, with the dependencies, you should have the following py3o python lib
   py3o.renderclient==0.2
   py3o.renderers.juno==0.8
   py3o.renderserver==0.5.1
-  py3o.template==0.9.11
+  py3o.template==0.10.0
   py3o.types==0.1.1
 
 Start the Py3o Fusion server:
