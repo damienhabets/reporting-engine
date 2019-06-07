@@ -16,6 +16,8 @@
     'external_dependencies': {
         'python': ['py3o.template',
                    'py3o.formats',
+                   'py3o.types',
+                   'setuptools',
                    'PyPDF2']
     },
     'data': [

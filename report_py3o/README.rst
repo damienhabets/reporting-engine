@@ -30,8 +30,9 @@ Install the required python libs:
 
 .. code::
 
-  pip install py3o.template
-  pip install py3o.formats
+  pip install py3o.template==0.10.0
+  pip install py3o.formats==0.3
+  pip install py3o.types==0.1.1
 
 To allow the conversion of ODT or ODS reports to other formats (PDF, DOC, DOCX, etc.), install libreoffice:
 
