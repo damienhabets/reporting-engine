@@ -102,7 +102,7 @@ def default_extend(report_xml, context):
     # ``py3o://function=html2text(record, "my_html_field")`` as a link around
     # it.
     context["html2text"] = lambda record, fieldname: (
-        format_multiline(html2text(getattr(record, fieldname)))
+        format_multiline(html2text.html2text(getattr(record, fieldname)))
     )
 
 
