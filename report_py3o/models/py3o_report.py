@@ -233,9 +233,12 @@ class Py3oReport(models.TransientModel):
     def _get_parser_context(self, model_instance, data):
         report_xml = self.ir_actions_report_id
         context = Py3oParserContext(self.env).localcontext
-#        context.update(
-#            report_xml._get_rendering_context(model_instance.ids, data) # XXX does not exist in odoo 11.0
-#        )
+        # Below lines backported from the _get_rendering_context method in odoo 12.
+        report_model_name = 'report.%s' % report_xml.report_name
+        report_model = self.env.get(report_model_name)
+        if report_model is not None:
+            context.update(report_model.get_report_values(model_instance, data=data))
+
         self._extend_parser_context(context, report_xml)
         context['objects'] = model_instance
         self._extend_parser_context(context, report_xml)
