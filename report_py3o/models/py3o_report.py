@@ -237,7 +237,7 @@ class Py3oReport(models.TransientModel):
         report_model_name = 'report.%s' % report_xml.report_name
         report_model = self.env.get(report_model_name)
         if report_model is not None:
-            context.update(report_model.get_report_values(model_instance, data=data))
+            context.update(report_model._get_report_values(model_instance, data=data))
 
         self._extend_parser_context(context, report_xml)
         context['objects'] = model_instance
