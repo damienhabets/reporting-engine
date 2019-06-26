@@ -41,7 +41,7 @@ ActionManager.include({
                     report_url += "/" + action.context.active_ids.join(',');
                 }
             } else {
-                report_url += "&options=" + encodeURIComponent(JSON.stringify(action.data));
+                report_url += "?&options=" + encodeURIComponent(JSON.stringify(action.data));
                 report_url += "&context=" + encodeURIComponent(JSON.stringify(action.context));
             }
 
